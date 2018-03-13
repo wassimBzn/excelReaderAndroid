@@ -1,0 +1,26 @@
+<html>
+<script src="file:///android_asset/xlsx.core.min.js"></script>
+<head></head>
+<body>
+</body>
+<script type ="text/javascript">
+
+    "use strict";
+
+    var X = XLSX;
+
+    function convertFile(b64data) {
+        var wb = X.read(b64data, {type: 'base64',WTF: false});
+
+        var result = {};
+        wb.SheetNames.forEach(function(sheetName) {
+            var roa = X.utils.sheet_to_row_object_array(wb.Sheets[sheetName]);
+            if(roa.length > 0){
+                result[sheetName] = roa;
+            }
+        });
+
+        return JSON.stringify(result, 2, 2);
+    }
+</script>
+</html>
